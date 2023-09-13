@@ -1,0 +1,25 @@
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: hidden;
+  height: 100%;
+}
+.card-actions {
+  position: absolute;
+  bottom: 0.5rem;
+  width: 100%;
+}
+.actions-conatiner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+.card-basic-details {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  width: calc(100% - 1rem);
+}

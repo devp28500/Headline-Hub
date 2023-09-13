@@ -1,0 +1,12 @@
+.header-conatiner {
+  width: calc(100% - 2rem);
+  height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 0 1rem;
+}
+.header-content {
+  display: flex;
+}
