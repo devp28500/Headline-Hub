@@ -1,15 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import Card from "../components/card";
 import ButtonLink from "../components/button-link";
+import AutoComplete from "../components/autocomplete";
+import Loading from "../components/loading";
+import NoNewsPage from "../news/no-news-page";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import classes from "./News.module.css";
 import { convertDate } from "../utils/commonUtils";
-import { useNavigate } from "react-router-dom";
+import { countryRoles } from "../constants/common-constants";
+import AppContext from "../AppContext";
+import classes from "./News.module.css";
 
 const News = (props) => {
   const { newsData = [] } = props;
   const [_newsData, _setNewsData] = useState();
+
+  const { getCountry, updateCountry, getLoading } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -27,6 +34,19 @@ const News = (props) => {
       <div className={classes["header"]}>
         <Header headerTitle="Headline Hub">
           <div className={classes["header-right-conatiner"]}>
+            <AutoComplete
+              options={countryRoles}
+              disableClearable={false}
+              isOptionEqualToValue={(option, value) => {
+                return option.code === value.code;
+              }}
+              getOptionLabel={(option) => option.name}
+              value={getCountry}
+              onChange={(e, value) => {
+                updateCountry(value);
+              }}
+              textFieldProps={{ placeholder: "Select a country." }}
+            />
             <ButtonLink
               label="All"
               variant="h6"
@@ -83,7 +103,10 @@ const News = (props) => {
         style={{ display: "flex", flexWrap: "wrap", gap: "2rem" }}
         className={classes["news-body"]}
       >
+        {getLoading && <Loading />}
+        {newsData?.length === 0 && !getLoading && <NoNewsPage />}
         {_newsData?.length > 0 &&
+          !getLoading &&
           _newsData.map((news, index) => {
             return (
               <Card

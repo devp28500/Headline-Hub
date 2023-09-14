@@ -1,16 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import newsService from "../services/newsService";
 import News from "./News";
+import AppContext from "../AppContext";
 
 const BusinessNews = () => {
   const [businessNewsData, setBusinessNews] = useState([]);
 
-  // const { updateLoading } = useContext(NewsContext);
+  const { getCountry, updateLoading } = useContext(AppContext);
 
   const getBusinessNews = useCallback(async () => {
-    const response = await newsService.getCategoryNews("business");
+    updateLoading(true);
+    const response = await newsService.getCategoryNews(
+      "business",
+      getCountry?.code
+    );
     setBusinessNews(response?.articles);
-  }, []);
+    updateLoading(false);
+  }, [getCountry?.code, updateLoading]);
 
   useEffect(() => {
     getBusinessNews();
