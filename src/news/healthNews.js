@@ -5,8 +5,6 @@ import News from "./News";
 const HealthNews = () => {
   const [healthNewsData, setHealthNews] = useState([]);
 
-  // const { updateLoading } = useContext(NewsContext);
-
   const getHealthNews = useCallback(async () => {
     const response = await newsService.getCategoryNews("health");
     setHealthNews(response?.articles);
