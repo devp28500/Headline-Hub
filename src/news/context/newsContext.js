@@ -10,7 +10,6 @@ export const NewsContextProvider = ({ children }) => {
   }, [showLoading]);
 
   const updateLoading = useCallback((value) => {
-    console.log("value", value);
     setShowLoading(value);
   }, []);
 
