@@ -4,6 +4,9 @@ const api = axios.create({});
 api.interceptors.request.use(
   (config) => {
     config.headers["Content-Type"] = `application/json`;
+    config.headers["Access-Control-Allow-Origin"] =
+      "https://newsapi.org/v2/top-headlines";
+    config.headers["Access-Control-Allow-Methods"] = "GET";
     return config;
   },
   (error) => {
